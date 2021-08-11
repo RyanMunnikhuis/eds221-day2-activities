@@ -40,25 +40,32 @@ mc_salamanders = mack_verts %>% filter (species == "DITE")
 mc_salamanders
 
 ggplot(data = mc_salamanders, aes(x = length1, y = weight)) + 
-  geom_point(stat = "identity", color = "#00abff") +
+  geom_point(aes(color = reach)) +
   labs(title = "Pacific Giant Salamanders Weight compared to Length", 
        subtitle = "Species Dicamptodon tenebrosus", 
        caption = "Gregory, S.V. and I. Arismendi. 2020. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present ver 14. Environmental Data Initiative. https://doi.org/10.6073/pasta/7c78d662e847cdbe33584add8f809165 (Accessed 2021-08-11).") + 
   theme( 
          plot.title = element_text(color = "red", size = 14, face = "bold"),
-         plot.subtitle = element_text(color = "blue"), 
+         plot.subtitle = element_text(color = "blue", face = "italic"), 
          plot.caption = element_text(face = "italic")) +
-  xlab("Salamander Length (mm)") +
-  ylab("Salamander weight (grams)")
+  xlab("Snout-vent Length (mm)") +
+  ylab("Weight (grams)")
          
 
-ggsave(here::here("figs", "ONCL_Weight_vs_Length.png"))
+#ggsave(here::here("figs", "ONCL_Weight_vs_Length.png"))
 
 ```
 ```{r}
 mc_trout = mack_verts %>% filter (species == "ONCL")
 
-ggplot(data = mc_trout, aes(x = length1, y = weight)) + geom_point(alpha = 0.5, color = "red")
+ggplot(data = mc_trout, aes(x = length1, y = weight)) + geom_point(aes(color = reach), alpha = 0.5) +
+  scale_color_manual(values = c("orange", "blue", "green")) + 
+  facet_wrap(~reach) +
+  labs(x = "Snout-fork Length (mm)",
+       y = "Weight (grams)", 
+       title = "Snount Length Versus Weight in Cutthroat Trout", 
+       subtitle = "Comparing Cuthroat Trout Weights and Legnths by Reach", 
+       caption = "Gregory, S.V. and I. Arismendi. 2020. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present ver 14. Environmental Data Initiative. https://doi.org/10.6073/pasta/7c78d662e847cdbe33584add8f809165 (Accessed 2021-08-11).")
                                                                       
 ```
 ```{r}
