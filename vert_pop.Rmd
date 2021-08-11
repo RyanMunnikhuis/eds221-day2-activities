@@ -1,0 +1,54 @@
+---
+title: "Wild Data"
+author: "Ryan Munnikhuis"
+date: "8/10/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(janitor)
+library(skimr)
+```
+
+```{r}
+mack_verts = read_csv(here::here("data", "AS00601.csv"))
+
+skimr::skim(mack_verts)
+names(mack_verts)
+
+mack_verts = janitor::clean_names(mack_verts)
+
+```
+```{r}
+mc_wt_5 = mack_verts$WEIGHT[5]
+
+mc_wt_5
+
+mc_length_8_20 = mack_verts$LENGTH1[8:20]
+mc_length_8_20
+mc_dates = mack_verts$SAMPLEDATE
+
+mc_dates
+```
+
+```{r}
+mc_salamanders = mack_verts %>% filter (species == "DITE")
+
+mc_salamanders
+
+ggplot(data = mc_salamanders, aes(x = length1, y = weight)) + geom_point(aes(color = species)) +
+  labs(title = "Pacific Giant Salamanders  Weight vs Length", subtitle = "species Dicamptodon tenebrosus")
+
+ggsave(here::here("figs", "ONCL_Weight_vs_Length.png")
+
+```
+```{r}
+mc_trout = mack_verts %>% filter (species == "ONCL")
+
+ggplot =(data = mc_trout, aes(x = length1, y
+```
+
+
