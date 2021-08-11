@@ -23,13 +23,13 @@ mack_verts = janitor::clean_names(mack_verts)
 
 ```
 ```{r}
-mc_wt_5 = mack_verts$WEIGHT[5]
+mc_wt_5 = mack_verts$weight[5]
 
 mc_wt_5
 
-mc_length_8_20 = mack_verts$LENGTH1[8:20]
+mc_length_8_20 = mack_verts$length1[8:20]
 mc_length_8_20
-mc_dates = mack_verts$SAMPLEDATE
+mc_dates = mack_verts$sampledate
 
 mc_dates
 ```
@@ -39,16 +39,30 @@ mc_salamanders = mack_verts %>% filter (species == "DITE")
 
 mc_salamanders
 
-ggplot(data = mc_salamanders, aes(x = length1, y = weight)) + geom_point(aes(color = species)) +
-  labs(title = "Pacific Giant Salamanders  Weight vs Length", subtitle = "species Dicamptodon tenebrosus")
+ggplot(data = mc_salamanders, aes(x = length1, y = weight)) + 
+  geom_point(stat = "identity", color = "#00abff") +
+  labs(title = "Pacific Giant Salamanders Weight compared to Length", 
+       subtitle = "Species Dicamptodon tenebrosus", 
+       caption = "Gregory, S.V. and I. Arismendi. 2020. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present ver 14. Environmental Data Initiative. https://doi.org/10.6073/pasta/7c78d662e847cdbe33584add8f809165 (Accessed 2021-08-11).") + 
+  theme( 
+         plot.title = element_text(color = "red", size = 14, face = "bold"),
+         plot.subtitle = element_text(color = "blue"), 
+         plot.caption = element_text(face = "italic")) +
+  xlab("Salamander Length (mm)") +
+  ylab("Salamander weight (grams)")
+         
 
-ggsave(here::here("figs", "ONCL_Weight_vs_Length.png")
+ggsave(here::here("figs", "ONCL_Weight_vs_Length.png"))
 
 ```
 ```{r}
 mc_trout = mack_verts %>% filter (species == "ONCL")
 
-ggplot =(data = mc_trout, aes(x = length1, y
+ggplot(data = mc_trout, aes(x = length1, y = weight)) + geom_point(alpha = 0.5, color = "red")
+                                                                      
+```
+```{r}
+view(mack_verts)
 ```
 
 
